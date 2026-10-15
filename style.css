@@ -1,0 +1,822 @@
+/* ==================================
+   TEACHER BIRTHDAY CELEBRATION
+   Oliver S. Turtor
+   ================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #f7d77a;
+    --cream: #fff8e7;
+    --green: #102f26;
+    --light-green: #1c4837;
+}
+
+body {
+    min-height: 100vh;
+    padding: 25px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--cream);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #285541 0%,
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #071b16,
+            #102f26,
+            #061712
+        );
+
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* CHALKBOARD TEXTURE */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    opacity: 0.08;
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            #ffffff 4px,
+            transparent 5px
+        );
+
+    z-index: 0;
+}
+
+/* PARTICLE CANVAS */
+
+#particles {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* MAIN CARD */
+
+.card {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 480px;
+
+    padding: 35px 24px;
+    text-align: center;
+
+    background: rgba(9, 33, 25, 0.92);
+
+    border: 1px solid rgba(247, 215, 122, 0.5);
+    border-radius: 24px;
+
+    box-shadow:
+        0 0 35px rgba(247, 215, 122, 0.08),
+        inset 0 0 35px rgba(255, 255, 255, 0.025);
+
+    animation: cardAppear 1s ease both;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* TOP LABEL */
+
+.top-label {
+    display: inline-block;
+
+    padding: 9px 15px;
+    margin-bottom: 22px;
+
+    color: var(--gold);
+
+    border: 1px solid rgba(247, 215, 122, 0.5);
+    border-radius: 30px;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+/* FLOATING APPLE */
+
+.apple {
+    font-size: 65px;
+
+    filter: drop-shadow(
+        0 0 15px rgba(247, 215, 122, 0.25)
+    );
+
+    animation: appleFloat 3s ease-in-out infinite;
+}
+
+@keyframes appleFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-4deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(4deg);
+    }
+}
+
+/* TITLES */
+
+.subtitle {
+    margin-top: 20px;
+    margin-bottom: 12px;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+
+    color: #c9d8ce;
+}
+
+h1 {
+    font-size: clamp(35px, 9vw, 49px);
+    line-height: 1.12;
+    font-weight: normal;
+}
+
+h1 span {
+    color: var(--gold);
+
+    text-shadow:
+        0 0 10px rgba(247, 215, 122, 0.35),
+        0 0 25px rgba(247, 215, 122, 0.15);
+}
+
+/* DIVIDER */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin: 22px 0;
+    color: var(--gold);
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--gold),
+        transparent
+    );
+}
+
+.divider span {
+    font-size: 22px;
+}
+
+/* TEACHER NAME */
+
+.teacher-name {
+    font-family: Arial, sans-serif;
+    font-size: clamp(20px, 5.5vw, 27px);
+
+    letter-spacing: 2px;
+    line-height: 1.4;
+
+    color: var(--gold);
+    overflow-wrap: anywhere;
+
+    animation: nameGlow 3s ease-in-out infinite;
+}
+
+@keyframes nameGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(247, 215, 122, 0.2);
+    }
+
+    50% {
+        text-shadow:
+            0 0 12px rgba(247, 215, 122, 0.6),
+            0 0 24px rgba(247, 215, 122, 0.15);
+    }
+}
+
+.teacher-title {
+    margin-top: 8px;
+
+    color: #c4d5c9;
+    font-style: italic;
+    font-size: 15px;
+}
+
+.intro {
+    margin: 24px auto 15px;
+    max-width: 340px;
+
+    color: #e0e8df;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* ==================================
+   BIRTHDAY CAKE
+   ================================== */
+
+.cake-area {
+    position: relative;
+
+    margin: 30px auto 20px;
+    padding-top: 10px;
+}
+
+.cake-glow {
+    position: absolute;
+
+    width: 180px;
+    height: 150px;
+
+    left: 50%;
+    top: 25px;
+
+    transform: translateX(-50%);
+
+    background: radial-gradient(
+        ellipse,
+        rgba(247, 215, 122, 0.16),
+        transparent 70%
+    );
+
+    animation: cakeGlow 3s ease-in-out infinite;
+}
+
+@keyframes cakeGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translateX(-50%) scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+.cake {
+    position: relative;
+
+    width: 170px;
+    height: 145px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    animation: cakeFloat 3s ease-in-out infinite;
+}
+
+@keyframes cakeFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* CANDLES */
+
+.candles {
+    height: 45px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 18px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.candle {
+    position: relative;
+
+    width: 9px;
+    height: 32px;
+
+    border-radius: 3px 3px 0 0;
+
+    background: repeating-linear-gradient(
+        45deg,
+        #fff8e7,
+        #fff8e7 4px,
+        #dcae54 4px,
+        #dcae54 7px
+    );
+}
+
+.flame {
+    position: absolute;
+
+    width: 13px;
+    height: 19px;
+
+    top: -20px;
+    left: -2px;
+
+    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+
+    background: radial-gradient(
+        ellipse at 50% 65%,
+        #ffffff 0%,
+        #fff1a8 25%,
+        #ffb02e 65%,
+        #ff702e 100%
+    );
+
+    box-shadow:
+        0 0 8px #ffc857,
+        0 0 18px rgba(255, 190, 70, 0.65);
+
+    transform-origin: center bottom;
+
+    animation: flameFlicker 0.8s ease-in-out infinite alternate;
+}
+
+.candle:nth-child(2) .flame {
+    animation-delay: -0.3s;
+}
+
+.candle:nth-child(3) .flame {
+    animation-delay: -0.55s;
+}
+
+@keyframes flameFlicker {
+    0% {
+        transform: rotate(-5deg) scale(0.95);
+        opacity: 0.85;
+    }
+
+    50% {
+        transform: rotate(4deg) scale(1.08);
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(-3deg) scale(0.92);
+        opacity: 0.9;
+    }
+}
+
+/* CAKE LAYERS */
+
+.cake-top {
+    position: relative;
+    z-index: 1;
+
+    width: 150px;
+    height: 25px;
+
+    margin-top: -2px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        180deg,
+        #fff1cc,
+        #f4c9a1
+    );
+
+    border: 2px solid #e9b96e;
+}
+
+.cake-middle {
+    width: 150px;
+    height: 34px;
+
+    margin-top: -5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    border-radius: 5px 5px 9px 9px;
+
+    background: linear-gradient(
+        90deg,
+        #a84248,
+        #d66d64,
+        #a84248
+    );
+
+    color: #fff4ce;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+
+    box-shadow:
+        inset 0 -4px 0 rgba(0, 0, 0, 0.12);
+}
+
+.cake-middle span {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+}
+
+.cake-bottom {
+    width: 170px;
+    height: 33px;
+
+    margin-top: -2px;
+
+    border-radius: 5px 5px 12px 12px;
+
+    background: linear-gradient(
+        90deg,
+        #e4b85f,
+        #ffe7a3,
+        #e4b85f
+    );
+
+    box-shadow:
+        inset 0 -5px 0 rgba(128, 80, 23, 0.12),
+        0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.cake-caption {
+    margin-top: 15px;
+
+    color: #d9d5bc;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* BOOK DECORATION */
+
+.book-decoration {
+    margin: 15px 0 25px;
+    font-size: 35px;
+
+    animation: bookFloat 4s ease-in-out infinite;
+}
+
+@keyframes bookFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* BUTTONS */
+
+button {
+    width: 100%;
+    max-width: 310px;
+
+    padding: 15px 18px;
+    border: none;
+    border-radius: 30px;
+
+    background: linear-gradient(
+        135deg,
+        #f7d77a,
+        #e8b94f
+    );
+
+    color: #183526;
+
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+
+    box-shadow: 0 5px 20px rgba(247, 215, 122, 0.15);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 25px rgba(247, 215, 122, 0.3);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 4px;
+}
+
+/* BIRTHDAY MESSAGE */
+
+.message {
+    margin-top: 25px;
+    padding: 24px 18px;
+
+    border: 1px solid rgba(247, 215, 122, 0.35);
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    text-align: left;
+}
+
+.message h2 {
+    margin-bottom: 17px;
+
+    text-align: center;
+
+    color: var(--gold);
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.message p {
+    margin-bottom: 15px;
+
+    font-size: 14px;
+    line-height: 1.9;
+
+    color: #e4eadf;
+}
+
+.message-icon {
+    margin-bottom: 12px;
+
+    text-align: center;
+    font-size: 38px;
+
+    animation: iconBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.final-message {
+    color: var(--gold) !important;
+}
+
+.birthday-wish {
+    margin: 24px 0;
+    padding: 17px 8px;
+
+    border-top: 1px solid rgba(247, 215, 122, 0.3);
+    border-bottom: 1px solid rgba(247, 215, 122, 0.3);
+
+    color: var(--gold);
+
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    animation: birthdayGlow 2s ease-in-out infinite;
+}
+
+@keyframes birthdayGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(247, 215, 122, 0.2);
+    }
+
+    50% {
+        text-shadow:
+            0 0 15px rgba(247, 215, 122, 0.65),
+            0 0 25px rgba(247, 215, 122, 0.2);
+    }
+}
+
+/* SIGNATURE */
+
+.signature {
+    margin: 22px 0;
+    padding-top: 17px;
+
+    border-top: 1px solid rgba(247, 215, 122, 0.25);
+
+    color: #d8e1d7;
+
+    font-size: 13px;
+    line-height: 1.9;
+    font-style: italic;
+
+    text-align: center;
+}
+
+.signature strong {
+    color: var(--gold);
+    font-style: normal;
+}
+
+/* MESSAGE REVEAL */
+
+.hidden {
+    display: none;
+}
+
+.message.show {
+    display: block;
+    animation: messageReveal 0.8s ease both;
+}
+
+@keyframes messageReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#celebrateBtn {
+    display: block;
+    margin: 15px auto 0;
+
+    width: 100%;
+    font-size: 10px;
+}
+
+/* CHALK DECORATIONS */
+
+.chalk-decoration {
+    position: fixed;
+    z-index: 1;
+
+    color: rgba(247, 215, 122, 0.3);
+    font-size: 30px;
+
+    pointer-events: none;
+
+    animation: chalkFloat 5s ease-in-out infinite;
+}
+
+.chalk-one {
+    top: 10%;
+    left: 7%;
+}
+
+.chalk-two {
+    right: 8%;
+    top: 22%;
+
+    animation-delay: -2s;
+}
+
+.chalk-three {
+    bottom: 10%;
+    right: 10%;
+
+    animation-delay: -3s;
+}
+
+@keyframes chalkFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(15deg);
+    }
+}
+
+/* NOTIFICATION */
+
+#toast {
+    position: fixed;
+    z-index: 5;
+
+    left: 50%;
+    bottom: 20px;
+
+    transform: translate(-50%, 20px);
+
+    width: max-content;
+    max-width: 90%;
+
+    padding: 12px 18px;
+    border-radius: 30px;
+
+    color: #193728;
+    background: var(--gold);
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 30px;
+
+    color: #aabdaf;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+footer span {
+    color: #ffb3a7;
+}
+
+/* MOBILE */
+
+@media (max-width: 360px) {
+    .card {
+        padding: 28px 16px;
+    }
+
+    .top-label {
+        letter-spacing: 1px;
+    }
+
+    .message {
+        padding: 20px 14px;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+  }
